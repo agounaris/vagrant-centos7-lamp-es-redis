@@ -1,21 +1,23 @@
 # mode: ruby
 # vi: set ft=ruby :
 
-PRIVATE_NETWORK_IP = "10.0.0.200"
+PRIVATE_NETWORK_IP = "10.0.0.10"
 
 Vagrant.configure("2") do |config|
 
-  config.vm.box = "CentOS7.0-x86_64-minimal "
-  config.vm.box_url = "https://f0fff3908f081cb6461b407be80daf97f07ac418.googledrive.com/host/0BwtuV7VyVTSkUG1PM3pCeDJ4dVE/centos7.box"
+  config.vm.box = "puppetlabs/centos-7.0-64-nocm"
 
-  config.vm.network :forwarded_port, guest: 80, host: 8080, auto_correct: true
+  config.vm.network :forwarded_port, guest: 8000, host: 8000, auto_correct: true
   #config.vm.network :forwarded_port, guest: 443, host: 443, auto_correct: true
   config.vm.network :forwarded_port, guest: 3306, host: 3306, auto_correct: true
 
   config.vm.network :private_network, ip: PRIVATE_NETWORK_IP
+  config.vm.synced_folder "~/src", "/var/www", id: "vagrant-root",
+    :type => "nfs"
 
   config.vm.provider :virtualbox do |v|
-    v.customize ["modifyvm", :id, "--memory", 3072]
+    v.customize ["modifyvm", :id, "--memory", 2048]
+    v.customize ["modifyvm", :id, "--cpus", "1"]
   end
 
   config.vm.provision :shell, :path => "scripts/firewall.sh"
@@ -27,5 +29,9 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :path => "scripts/redis.sh"
   config.vm.provision :shell, :path => "scripts/elasticsearch.sh"
   config.vm.provision :shell, :path => "scripts/bootstrap.sh"
+  config.vm.provision :shell, :path => "scripts/dev-tools.sh"
+  config.vm.provision :shell, :path => "scripts/symfony.sh"
+  config.vm.provision :shell, :path => "scripts/webgrind.sh"
+  config.vm.provision :shell, :path => "scripts/phpmyadmin.sh"
 
 end

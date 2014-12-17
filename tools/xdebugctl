@@ -1,0 +1,56 @@
+#!/bin/sh
+# created at: 16/12/2014
+# author: argyrios gounaris
+
+# manage xdebug states
+#
+# BEGIN SCRIPT
+
+usage() {
+    echo `basename $0`: ERROR: $* 1>&2
+    echo usage: `basename $0` '[-e] [-d] [-c]' 1>&2
+    exit 1
+}
+
+restart_apache() {
+    echo "Restarting httpd service"
+    systemctl restart httpd
+    exit 0
+}
+
+ENABLE="; Enable xdebug extension module \n
+zend_extension=/usr/lib64/php/modules/xdebug.so
+"
+
+CRAZY="; Enable xdebug extension module \n
+zend_extension=/usr/lib64/php/modules/xdebug.so \n
+xdebug.remote_autostart=1 \n
+xdebug.remote_enable=1 \n
+xdebug.profiler_enable=1 \n
+xdebug.profiler_enable_trigger=1 \n
+xdebug.profiler_output_dir = \"/var/www/profiling\" \n
+xdebug.profiler_output_name = \"cachegrind.out.%t.%p\""
+
+while :
+do
+    case "$1" in
+    -e)
+        echo "Enabling xdebug"
+        echo -e $ENABLE > /etc/php.d/xdebug.ini
+        restart_apache
+        ;;
+    -d)
+        echo "Disabling xdebug"
+        echo "" > /etc/php.d/xdebug.ini
+        restart_apache
+        ;;
+    -c)
+        echo "Xdebug crazy mode"
+        echo -e $CRAZY > /etc/php.d/xdebug.ini
+        restart_apache
+        ;;
+    ?) usage "bad argument $1";;
+    *) break;;
+    esac
+    shift
+done

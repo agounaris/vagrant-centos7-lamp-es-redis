@@ -18,5 +18,7 @@ firewall-cmd --reload
 #Reload the database
 echo "Setting DB permissions for root"
 mysql -u root <<< "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+mysql -u root <<< "UPDATE mysql.user SET Password=PASSWORD('toor') WHERE User='root';"
+mysql -u root <<< "FLUSH PRIVILEGES;"
 
 echo "MySQL installed"
