@@ -11,8 +11,8 @@ systemctl enable mysqld
 echo "Starting MySQL service"
 systemctl start mysqld
 
-echo "Add port 3306 to iptables"
-firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -p tcp --dport 3306 -j ACCEPT
+echo "Add port 3306 to firewalld"
+firewall-cmd --zone=public --add-port=3306/tcp --permanent
 firewall-cmd --reload
 
 #Reload the database

@@ -13,8 +13,8 @@ echo "Starting httpd service"
 systemctl restart httpd
 
 echo "Add ports 80, 443 to firewall"
-firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -p tcp --dport 80 -j ACCEPT
-firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -p tcp --dport 443 -j ACCEPT
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+firewall-cmd --zone=public --add-port=443/tcp --permanent
 firewall-cmd --reload
 
 echo "Apache installed"

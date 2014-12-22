@@ -23,5 +23,5 @@ echo "Starting Elasticsaerch service"
 systemctl restart elasticsearch
 
 echo "Add port 9200 to firewall"
-firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -p tcp --dport 9200 -j ACCEPT
+firewall-cmd --zone=public --add-port=9200/tcp --permanent
 firewall-cmd --reload

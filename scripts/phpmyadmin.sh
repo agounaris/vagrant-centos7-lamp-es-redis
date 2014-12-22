@@ -14,7 +14,7 @@ if [ ! -d "$DIRECTORY" ]; then
     cp -r /vagrant/config/a2_phpmyadmin.conf /etc/httpd/conf.d/a2_phpmyadmin.conf
 
     echo "Setting firewall rules for phpmyadmin"
-    firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -p tcp --dport 9000 -j ACCEPT
+    firewall-cmd --zone=public --add-port=9000/tcp --permanent
     firewall-cmd --reload
 
     echo "Restarting httpd"

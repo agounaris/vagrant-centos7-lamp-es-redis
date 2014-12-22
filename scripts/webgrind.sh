@@ -14,8 +14,9 @@ if [ ! -d "$DIRECTORY" ]; then
     cp /vagrant/config/webgrind/config.php /var/www/webgrind/config.php
 
     echo "Setting firewall rules for webgrind"
-    firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -p tcp --dport 9001 -j ACCEPT
+    firewall-cmd --zone=public --add-port=9001/tcp --permanent
     firewall-cmd --reload
+
 
     echo "Restarting httpd"
     systemctl restart httpd

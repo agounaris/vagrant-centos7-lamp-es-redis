@@ -1,26 +1,20 @@
 #!/bin/bash
 
-VERSION="2.6.1"
 DIRECTORY="/var/www/symfony"
 
 if [ ! -d "$DIRECTORY" ]; then
-    echo "Downloading symfony $VERSION"
+    echo "Downloading symfony latest stable"
     cd /var/www
-    wget https://github.com/symfony/symfony-standard/archive/v$VERSION.tar.gz
-    tar zxvf v$VERSION.tar.gz
-    mv symfony-standard-$VERSION symfony
-    rm v$VERSION.tar.gz
+    composer create-project symfony/framework-standard-edition symfony
 
     echo "Copy parameters.yml and create database"
     cp -f /vagrant/config/symfony/parameters.yml /var/www/symfony/app/config/parameters.yml
 
-    echo "Running composer install"
+    echo "Setting symfony rights on cache and logs, creating database"
     cd symfony
-    composer install
-
-    echo "Setting symfony rights on cache and logs"
     rm -rf app/cache/* app/logs/*
     chmod 777 -R app/cache app/logs #dev only prod should have the official way to set user rights
+    app/console doctrine:database:create
     app/console assetic:dump
 
     echo "Copy apache conf"
@@ -30,7 +24,7 @@ if [ ! -d "$DIRECTORY" ]; then
     cp -f /vagrant/config/symfony/app_dev.php /var/www/symfony/web/app_dev.php
 
     echo "Setting firewall rules for symfony"
-    firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -p tcp --dport 8000 -j ACCEPT
+    firewall-cmd --zone=public --add-port=8000/tcp --permanent
     firewall-cmd --reload
 
     echo "Restarting httpd"
