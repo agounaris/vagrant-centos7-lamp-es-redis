@@ -29,6 +29,6 @@ I am using CentOS 7 image from [vagrant cloud puppetlabs](https://vagrantcloud.c
 - xdebugctl [-e -d -c] tool to control xdebug output (sudo mandatory)
 - php 5.6.2
 - oracle mysql 5.6
-- elasticsearch 4
+- elasticsearch 1.4, check http://10.0.0.10:9200
 - redis
 - load testing tools inlcuding sysbench, siege, ab
