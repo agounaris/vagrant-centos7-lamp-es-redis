@@ -9,7 +9,7 @@ curve that was unsuitable for my case. After vagrant up, the main url will welco
 
 The main approach is that applications live in the 80++ port range while tools in 90++ range. You will find few load testing
 tools along with a handy xdebugctl script to turn on and off xdebug with a single command. By default laravel and yii2 installation
-are deactivated so have a look in Vagrant file and comment/uncomment out those that you don't want/need. I hope you will enjoy
+is deactivated so have a look in Vagrant file and comment/uncomment out those that you don't want/need. I hope you will enjoy
 this VM and I always accept recommendations and requests.
 
 ## Guest OS
