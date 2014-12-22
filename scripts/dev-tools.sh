@@ -9,3 +9,9 @@ yum install -y unzip
 
 echo "Installing graphviz"
 yum install -y graphviz
+
+echo "Installing sysbench"
+yum install -y sysbench
+
+echo "Installing siege"
+yum install -y siege

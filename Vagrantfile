@@ -28,10 +28,9 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :path => "scripts/composer.sh"
   config.vm.provision :shell, :path => "scripts/redis.sh"
   config.vm.provision :shell, :path => "scripts/elasticsearch.sh"
-  config.vm.provision :shell, :path => "scripts/bootstrap.sh"
-  config.vm.provision :shell, :path => "scripts/dev-tools.sh"
   config.vm.provision :shell, :path => "scripts/symfony.sh"
   config.vm.provision :shell, :path => "scripts/webgrind.sh"
   config.vm.provision :shell, :path => "scripts/phpmyadmin.sh"
+  config.vm.provision :shell, :path => "scripts/dev-tools.sh"
 
 end
