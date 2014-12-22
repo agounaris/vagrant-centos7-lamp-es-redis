@@ -17,7 +17,7 @@ I am using CentOS 7 image from [vagrant cloud puppetlabs](https://vagrantcloud.c
 
 ## Prerequisites / Requirements
 
-- virtual box
+- virtualbox
 - vagrant with guest additions (vagrant plugin install vagrant-vbguest)
 - a /src folder in your home directory (configuration in Vagrantfile)
 
