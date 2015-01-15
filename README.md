@@ -1,3 +1,6 @@
+DEPRECATED REPO, EXISTS MAINLY AS A KNOWLEDGE BASE
+=========================================
+
 Vagrant Centos 7 lamp Elasticsearch Redis
 =========================================
 
